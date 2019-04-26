@@ -1,0 +1,336 @@
+/*!
+ * Laravel-Bootstrap-Modal-Form (https://github.com/JerseyMilker/Laravel-Bootstrap-Modal-Form)
+ * Copyright 2015 Jesse Leite - MIT License
+ *
+ * Bromance:
+ * Adam Wathan has nice boots. Thank you for BootForms magic.
+ * Matt Higgins has nice beard. Thank you for JS wizardry.
+ */
+
+$('document').ready(function() {
+
+
+
+    $('#modal').on('hidden.bs.modal', function (e) {
+        // alert('hidden');
+        $(this)
+            .find("input,textarea,select")
+            .val('')
+            .end()
+            .find("input[type=checkbox], input[type=radio]")
+            .prop("checked", "")
+            .end();
+
+        $('.form-group').removeClass('has-error');
+        $('.form-group').find('.help-block').remove();
+        $('#progressDivId').hide();
+        $('#progressBar').css("width", "0%");
+        $('#percent').html('0% Complete');
+    })
+
+
+
+
+    // //this function call on close button of form
+    // function saveform() {
+    //
+    //     var form_id = $(this).closest("form[id]").attr('id');
+    //     alert(form_id);
+    //     form_id.submit();
+    //
+    // }
+
+    $('#progressDivId').hide();
+
+    var spinner = $('#loader');
+    // Prepare reset.
+    function resetModalFormErrors() {
+        $('.form-group').removeClass('has-error');
+        $('.form-group').find('.help-block').remove();
+    }
+
+    // Intercept submit.
+    $('form.bootstrap-modal-form').on('submit', function(submission) {
+
+
+        submission.preventDefault();
+
+        //loader show
+        spinner.show();
+
+        // Set vars.
+        var form   = $(this),
+            url    = form.attr('action'),
+            method    = form.attr('method'),
+            submit = form.find('[type=submit]');
+
+        // Check for file inputs.
+        if (form.find('[type=file]').length) {
+
+            // If found, prepare submission via FormData object.
+            var input       = form.serializeArray(),
+                data        = new FormData(),
+                contentType = false;
+
+            // Append input to FormData object.
+            $.each(input, function(index, input) {
+                data.append(input.name, input.value);
+            });
+
+            // Append files to FormData object.
+            $.each(form.find('[type=file]'), function(index, input) {
+                if (input.files.length == 1) {
+                    data.append(input.name, input.files[0]);
+                } else if (input.files.length > 1) {
+                    data.append(input.name, input.files);
+                }
+            });
+        }
+
+        // If no file input found, do not use FormData object (better browser compatibility).
+        else {
+            var data        = form.serialize(),
+                contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+        }
+
+        // Please wait.
+        if (submit.is('button')) {
+            submit.attr("disabled","disabled");
+            var submitOriginal = submit.html();
+            submit.html('Please wait...');
+        } else if (submit.is('input')) {
+            var submitOriginal = submit.val();
+            submit.attr("disabled","disabled");
+            submit.val('Please wait...');
+        }
+
+        // Request.
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: 'json',
+            cache: false,
+            contentType: contentType,
+            processData: false,
+
+            xhr: function()
+            {
+                var xhr = new window.XMLHttpRequest();
+                //Upload progress
+                xhr.upload.addEventListener("progress", function(evt){
+                    if (evt.lengthComputable) {
+                        var percentComplete = Math.floor(evt.loaded / evt.total *100);
+                        //Do something with upload progress
+                        console.log(Math.floor(evt.loaded / evt.total *100) + '%');
+                        $("#progressDivId").css("display", "block");
+                        var percentValue = percentComplete + '%';
+                        console.log(percentComplete);
+                        $("#progressBar").animate({
+                            width: '' + percentValue + ''
+                        }, {
+                            duration: 5000,
+                            easing: "linear",
+                            step: function (x) {
+                                percentText = Math.round(x * 100 / percentComplete);
+                                $("#percent").text(percentText + "%");
+                                if(percentText == "100") {
+                                   // $("#outputImage").show();
+                                }
+                            }
+                        });
+
+
+                    }
+                }, false);
+                //Download progress
+                xhr.addEventListener("progress", function(evt){
+                    if (evt.lengthComputable) {
+                        var percentComplete = evt.loaded / evt.total;
+                        //Do something with download progress
+                        console.log(percentComplete);
+                    }
+                }, false);
+                return xhr;
+            },
+
+        // Response.
+        }).always(function(response, status) {
+
+            // Reset errors.
+            resetModalFormErrors();
+
+            // Check for errors.
+            if (response.status == 422) {
+                var errorsJson = $.parseJSON(response.responseText);
+
+                // Iterate through errors object.
+                //handle arrays
+                    $.each(errorsJson.errors, function (field, message) {
+                        console.error(field+': '+message);
+                        // console.log(key + "_error______________"+val[0]);
+                        $("#" + field + "_error").text(message[0]);
+                        var formGroup = $('[name='+field+']', form).closest('.form-group');
+                        formGroup.addClass('has-error').append('<p class="help-block">'+message[0]+'</p>');
+
+                        var label = $('[name='+field+']', form).siblings("label");
+                        label.addClass('control-label');
+
+                    });
+
+
+                // Reset submit.
+                if (submit.is('button')) {
+                    submit.html(submitOriginal);
+                    submit.removeAttr('disabled')
+
+                } else if (submit.is('input')) {
+
+                     submit.val(submitOriginal);
+                     submit.removeAttr('disabled')
+                }
+                //loader hide
+                spinner.hide();
+            // If successful, reload.
+            } else {
+                //loader hide
+                spinner.hide();
+                var loc = public_path+'/'+response.data.profile_picture;
+                console.log(loc);
+                $('#avatar_image').attr("src",loc);
+                $('#modal').modal('hide')
+                console.log(response);
+               // location.reload();
+            }
+        });
+    });
+
+
+
+    // Without Image Intercept submit.
+    $('form.bootstrap-modal-form-noImage').on('submit', function(submission) {
+
+
+
+        submission.preventDefault();
+
+        //loader show
+        spinner.show();
+
+        // Set vars.
+        var form   = $(this),
+            url    = form.attr('action'),
+            method    = form.attr('method'),
+            submit = form.find('[type=submit]');
+
+
+        console.log('methodmethodmethodmethodmethod'+method)
+
+        // Check for file inputs.
+        if (form.find('[type=file]').length) {
+
+            // If found, prepare submission via FormData object.
+            var input       = form.serializeArray(),
+                data        = new FormData(),
+                contentType = false;
+
+            // Append input to FormData object.
+            $.each(input, function(index, input) {
+                data.append(input.name, input.value);
+            });
+
+            // Append files to FormData object.
+            $.each(form.find('[type=file]'), function(index, input) {
+                if (input.files.length == 1) {
+                    data.append(input.name, input.files[0]);
+                } else if (input.files.length > 1) {
+                    data.append(input.name, input.files);
+                }
+            });
+        }
+
+        // If no file input found, do not use FormData object (better browser compatibility).
+        else {
+            var data        = form.serialize(),
+                contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+        }
+
+        // Please wait.
+        if (submit.is('button')) {
+            submit.attr("disabled","disabled");
+            var submitOriginal = submit.html();
+            submit.html('Please wait...');
+        } else if (submit.is('input')) {
+            var submitOriginal = submit.val();
+            submit.attr("disabled","disabled");
+            submit.val('Please wait...');
+        }
+        console.log(method);
+        // Request.
+        $.ajax({
+            type: method,
+            url: url,
+            data: data,
+            dataType: 'json',
+            cache: false,
+            contentType: contentType,
+            processData: false,
+
+            // Response.
+        }).always(function(response, status) {
+
+            // Reset errors.
+            resetModalFormErrors();
+
+            // Check for errors.
+            if (response.status == 422) {
+                var errorsJson = $.parseJSON(response.responseText);
+
+                // Iterate through errors object.
+                //handle arrays
+                $.each(errorsJson.errors, function (field, message) {
+                    console.error(field+': '+message);
+                    // console.log(key + "_error______________"+val[0]);
+                    $("#" + field + "_error").text(message[0]);
+                    var formGroup = $('[name='+field+']', form).closest('.form-group');
+                    formGroup.addClass('has-error').append('<p class="help-block">'+message[0]+'</p>');
+
+                    var label = $('[name='+field+']', form).siblings("label");
+                    label.addClass('control-label');
+
+                });
+
+
+                // Reset submit.
+                if (submit.is('button')) {
+                    submit.html(submitOriginal);
+                    submit.removeAttr('disabled')
+
+                } else if (submit.is('input')) {
+
+                    submit.val(submitOriginal);
+                    submit.removeAttr('disabled')
+                }
+                //loader hide
+                spinner.hide();
+                // If successful, reload.
+            } else {
+                //loader hide
+                spinner.hide();
+                $('#modal').modal('hide')
+               window.location.reload();
+                console.log(response);
+                // location.reload();
+            }
+        });
+    });
+
+
+    // Reset errors when opening modal.
+    $('.bootstrap-modal-form-open').click(function() {
+
+        resetModalFormErrors();
+        // alert();
+    });
+
+});

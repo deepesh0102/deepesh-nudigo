@@ -1,0 +1,174 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+//        $this->middleware('auth');
+        $this->middleware(['auth', 'verified']);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+
+        return view('user.itinerary');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+    /**
+     * Create a Quote of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function quote()
+    {
+
+        return view('user.quote');
+    }
+
+    /**
+     * Show a Quote of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function TeamMain()
+    {
+
+        return view('user.team_main');
+    }
+
+    /**
+     * Verify Email a Quote of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function VerifyEmail()
+    {
+
+        return view('user.verify-email');
+    }
+
+    /**
+     * Profile a Quote of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function Profile()
+    {
+
+        return view('user.profile');
+    }
+
+    /**
+     * Payment a Quote of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function Payment()
+    {
+
+        return view('user.payment');
+    }
+
+    /**
+     * Passenger a Quote of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function Passenger()
+    {
+
+        return view('user.passenger');
+    }
+
+    /**
+     * Timeline a Quote of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function Timeline()
+    {
+
+        return view('user.timeline');
+    }
+}

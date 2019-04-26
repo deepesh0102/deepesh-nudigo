@@ -1,0 +1,129 @@
+/****** PLACE YOUR CUSTOM STYLES HERE ******/
+.custom-combobox {
+    position: relative;
+    display: inline-block;
+  }
+  .custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+  }
+  .custom-combobox-input {
+    margin: 0;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    width: 100%;
+    min-width: 290px;
+    height: 100%;
+    min-height: 50px;
+  }
+  .custom-combobox a{
+    display:none;
+    
+  }
+
+  .rmenu {
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  .rmenu.inline-block {
+    width: auto;
+  }
+  .rmenu li a {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #292929;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    max-width: 100%;
+    white-space: normal;
+  }
+  .rmenu li a:hover {
+    opacity: 1 !important;
+  }
+  .rmenu > li {
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    opacity: 1;
+  }
+  .rmenu > li:last-child {
+    margin-right: 0;
+  }
+  .rmenu > li:last-child > ul {
+    right: 0;
+  }
+  .rmenu > li:last-child > ul ul {
+    left: auto;
+    right: 100%;
+  }
+  .rmenu > li ul {
+    width: 200px;
+    padding: 8px 0;
+    background: #292929;
+    position: absolute;
+    z-index: 99;
+    opacity: 0;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transform: translate3d(0, 10px, 0);
+    -webkit-transform: translate3d(0, 10px, 0);
+    -moz-transform: translate3d(0, 10px, 0);
+    visibility: hidden;
+    margin-top: -1px;
+  }
+  .rmenu > li > ul > li {
+    position: relative;
+    line-height: 24px;
+    width: 100%;
+    vertical-align: top;
+  }
+  .rmenu > li > ul > li i {
+    display: inline-block;
+    margin-right: 2px;
+  }
+  .rmenu > li > ul > .has-dropdown:after {
+    color: #fff;
+    top: 5px;
+    right: 24px;
+    content: "\e649";
+  }
+  .rmenu > li > ul li a {
+    color: #fff;
+    height: auto;
+    padding: 6px 24px;
+  }
+  .rmenu > li > ul > li > ul {
+    left: 100%;
+    top: 0;
+  }
+  .rmenu > li:hover > ul {
+    opacity: 1;
+    transform: translate3d(0, 0px, 0);
+    -webkit-transform: translate3d(0, 0px, 0);
+    -moz-transform: translate3d(0, 0px, 0);
+    visibility: visible;
+  }
+  .rmenu > li > ul > li:hover > ul,
+  .has-dropdown:hover .mega-menu ul {
+    opacity: 1;
+    transform: translate3d(0, 0px, 0);
+    -webkit-transform: translate3d(0, 0px, 0);
+    -moz-transform: translate3d(0, 0px, 0);
+    visibility: visible;
+  }
+
+  .cover h1, .cover h2, .cover h3, .cover h4, .cover h5, .cover h6,.cover p, .cover span, .cover li {
+    color: #000000 !important;
+  }
+  a:hover{
+    color: #23527c !important;
+  }

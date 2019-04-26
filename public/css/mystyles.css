@@ -1,0 +1,100 @@
+/*YOUR CUSTOM STYLES*/
+.bg-mask{
+    /* background: #ffffff !important; */
+    opacity: 0.1 !important;
+}
+
+/*Deepesh This Css for inLine Radio Buttons*/
+.radio-inline.radio-small>label>div.i-radio {
+    top: -1px;
+}
+
+.cc-form .form-group.form-group-cc-number .cc-card-icon {
+    display: block;
+    width: 41px;
+    height: 26px;
+    position: absolute;
+    right: 4px;
+    top: 29px !important;
+    background-repeat: no-repeat;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    background-size: 100% 100%;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -ms-transition: 0.3s;
+    transition: 0.3s;
+    -webkit-transform: translate3d(0, -10px, 0);
+    -moz-transform: translate3d(0, -10px, 0);
+    -o-transform: translate3d(0, -10px, 0);
+    -ms-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
+}
+
+
+/*loder for ajax*/
+#loader {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.75) url(../img/loading2.gif) no-repeat center center;
+    z-index: 10000;
+}
+
+#loader > h5 {
+
+    height: 100%;
+    align-items: center;
+    display: flex;
+    margin: 36px;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+
+
+}
+
+
+
+/*cards css*/
+
+.card-select > li {
+    overflow: hidden;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    width: 100% !important;
+}
+
+
+.card-select > li.active {
+    overflow: hidden;
+    padding: 10px 15px;
+    border: 1px solid #ff0097;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    width: 100% !important;
+}
+
+/*button css*/
+.custom-button {
+border: transparent;padding: 5px 13px;font-size: 20px;
+
+}
+
+/*remove these arrows from input[type=number]*/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

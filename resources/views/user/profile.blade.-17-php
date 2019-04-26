@@ -1,0 +1,365 @@
+{{--/**--}}
+{{--* Created by PhpStorm.--}}
+{{--* User: Deepesh Patel--}}
+{{--* Date: 02-02-2019--}}
+{{--* Time: 07:06--}}
+{{--*/--}}
+
+@extends('layouts.frontLayout.front_design')
+
+@section('style')
+    {{--<style>--}}
+    {{--/* ghostClass */--}}
+    {{--.ghost {--}}
+    {{--opacity: .5;--}}
+    {{--background: #C8EBFB;--}}
+    {{--}--}}
+
+    {{--/* chosenClass */--}}
+    {{--.chosen {--}}
+    {{--color: #fff;--}}
+    {{--background-color: #FF0097 !important;--}}
+    {{--}--}}
+
+    {{--.chosen > div > .panel {--}}
+    {{--background: #FF0097;--}}
+    {{--color: #fff;--}}
+    {{--}--}}
+
+    {{--.append_artical div {--}}
+
+    {{--transition: all .5s;--}}
+    {{--/*cursor: move;*/--}}
+    {{--}--}}
+
+    {{--button.close {--}}
+    {{--padding: 0;--}}
+    {{--cursor: pointer;--}}
+    {{--background: transparent;--}}
+    {{--border-radius: 50%;--}}
+    {{--width: 27px;--}}
+    {{--height: 27px;--}}
+    {{--border: 0;--}}
+    {{--position: absolute;--}}
+    {{--opacity: 1;--}}
+    {{--right: 9px;--}}
+    {{--border: solid 2px;--}}
+    {{--top: 8px;--}}
+    {{---webkit-appearance: none;--}}
+    {{--z-index: 500;--}}
+    {{--}--}}
+
+
+    {{--span.ham_burger {--}}
+    {{--position: absolute;--}}
+    {{--right: 15px;--}}
+    {{--bottom: 10px;--}}
+    {{--}--}}
+
+    {{--.my-handle {--}}
+    {{--cursor: move;--}}
+    {{--cursor: -webkit-grabbing;--}}
+    {{--}--}}
+
+    {{--</style>--}}
+    <style>
+        /* ghostClass */
+        .ghost {
+            opacity: .5;
+            background: #C8EBFB;
+        }
+
+        /* chosenClass */
+        .chosen {
+            color: #fff;
+            background-color: #FF0097 !important;
+        }
+
+        .chosen > div > .panel {
+            background: #FF0097;
+            color: #fff;
+        }
+
+        .append_artical div {
+
+            transition: all .5s;
+            /*cursor: move;*/
+        }
+
+        button.close {
+            padding: 0;
+            cursor: pointer;
+            background: transparent;
+            border-radius: 50%;
+            width: 27px;
+            height: 27px;
+            border: 0;
+            position: absolute;
+            opacity: 1;
+            right: 9px;
+            border: solid 2px;
+            top: 8px;
+            -webkit-appearance: none;
+            z-index: 500;
+        }
+
+
+        span.ham_burger {
+            position: absolute;
+            right: 15px;
+            bottom: 10px;
+        }
+
+        .my-handle {
+            cursor: move;
+            cursor: -webkit-grabbing;
+        }
+
+    </style>
+@endsection
+
+
+@section('content')
+
+
+    <!-- TOP AREA -->
+    <div class="top-area show-onload">
+
+        <div class="bg-holder full">
+            <div class="bg-mask bg-mask-white"></div>
+            <div class="bg-parallax" style="background-image:url({{ asset('img/1024x487.png')}});"></div>
+            <div class="bg-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="search-tabs search-tabs-bg mt50">
+                                <!-- <h1>Find Your Perfect Trip</h1> -->
+                                <section id="content" class="content-sidebar">
+                                    <!-- .main -->
+                                    <section class="main">
+
+                                        <div class="padder m-t m-b" style="margin-top: 25px">
+                                            <div class="timeline">
+
+                                                <article class="timeline-item active bootstrap-modal-form-open"
+                                                         id="add_drag_drop" data-toggle="modal" data-target="#modal-profile">
+
+                                                    <div class="timeline-caption">
+                                                        <div class="padding-default panel bg bg-primary c-pointer">
+                                                            <div class="m-t-small timeline-action text-center">
+                                                                <a class="timeline-icon">
+                                                                    <i class="fas m-auto fa-plus box-icon-big round time-icon"
+                                                                       style="padding-top: 16px;"></i></a><br>
+                                                                <h3 class="text-center">My Profile</h3><br>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </article>
+
+
+                                            </div>
+                                        </div>
+                                    </section>
+                                </section>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal-profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form class="bootstrap-modal-form" id="profile_form_submite"
+                          action="{{route('save.profile',['id'=>Auth::user()->id ])}}">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center" id="exampleModalLabel">My Profile</h5>
+                            {{--data-dismiss="modal" aria-label="Close"--}}
+                            {{--<button type="button" onclick="saveform()" class="close" >--}}
+                            {{--<span aria-hidden="true">&times;</span>--}}
+                            {{--</button>--}}
+                        </div>
+                        <div class="modal-body">
+                            <div class="mfp-with-anim  mfp-dialog" id="passenger-dialog">
+                                {{--<h3 class="mb0"></h3>--}}
+                                {{--<p>Brad Pitt</p>--}}
+{{--                                {{$user}}--}}
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+
+                                            <label class="control-label">Gender</label>
+
+                                            <div class="radio-inline radio-small">
+
+                                                <label>
+                                                    <input class="i-radio" value="male" type="radio"
+                                                           name="gender" {{ $user->gender == 'male' ? 'checked' : '' }}/>
+                                                    Male
+                                                </label>
+                                            </div>
+                                            <div class="radio-inline radio-small">
+                                                <label>
+                                                    <input class="i-radio" value="female" type="radio"
+                                                           name="gender" {{ $user->gender == 'female' ? 'checked' : '' }}/>
+                                                    Female
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <input class="form-control" value="{{ $user->username ?? " " }}"
+                                                   name="username" placeholder="Username" type="text" required/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input class="form-control" value="{{ $user->name ?? "" }} " name="name"
+                                                   placeholder="Enter Name" type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input class="form-control" value="{{$user->email ?? ''}}" name="email"
+                                                   placeholder="Enter email" type="email"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Date of Birth</label>
+                                            <input class="date-pick-years form-control"
+                                                   value="{{$user->date_of_birth ?? ''}}" name="date_of_birth"
+                                                   placeholder="Enter Date of Birth" type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <input class="form-control" placeholder="Enter Address"
+                                                   value="{{$user->address ?? ''}}" name="address" type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input class="form-control" placeholder="Enter City" type="text"
+                                                   value="{{$user->city ?? ''}}" name="city"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Zip Code</label>
+                                            <input class="form-control" placeholder="Enter Zip Code" type="text"
+                                                   value="{{$user->zip_code ?? ''}}" name="zip_code"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>State/Province</label>
+                                            <input class="form-control" placeholder="State/Province" type="text"
+                                                   value="{{$user->state ?? ''}}" name="state"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Country</label>
+                                            <input class="form-control" placeholder="Enter Country" type="text"
+                                                   value="{{$user->country ?? ''}}" name="country"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>password</label>
+                                            <input class="form-control" placeholder="Enter Password" type="password"
+                                                   value="" name="password"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="profile_picture">Upload Avatar</label>
+                                            <input name="profile_picture" type="file" class="form-control-file dropify"
+                                                   data-default-file="{{asset('/profileImage/large/').'/'.$user->profile_picture ?? '40x40.png'}}"
+                                                   id="profile_picture">
+                                            <div class="progress progress-striped active" id="progressDivId">
+                                                <div class="progress-bar" id="progressBar" role="progressbar"
+                                                     aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
+                                                     style="width: 0%; ">
+                                                    <span id="percent" class="">0% Complete</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+
+                                {{--<button type="button"  id="deletecard" onclick="deletedata();" ><i class="far fa-trash-alt"></i></button>--}}
+                                <div class="text-center">
+                                    <button type="button custom-button"
+                                            style="background-color: transparent;border: transparent;padding: 0px 0px;font-size: 17px;"
+                                            id="saveform" onclick="saveforms();">
+                                        <i style="color: #999999;"   class="far fa-check-circle fa-2x"></i></button>
+                                </div>
+                            </div>
+                            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                            {{--<div class="text-center"><button id="save_profile" type="button" class="btn btn-primary">Save</button></div>--}}
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END TOP AREA  -->
+
+
+@endsection
+
+
+@section('script')
+    <script>
+        $('#loader').html("");
+        $('#loader').html("<h5>Encrypting....Please Wait</h5>");
+
+        // Basic
+        $('.dropify').dropify();
+
+        //this function call on close button of form
+        function saveform() {
+
+            $('#profile_form_submite').submit();
+
+        }
+
+
+
+        $('#modal-profile').on('hidden.bs.modal', function (e) {
+
+            $('.form-group').removeClass('has-error');
+            $('.form-group').find('.help-block').remove();
+            $('#progressDivId').hide();
+            $('#progressBar').css("width", "0%");
+            $('#percent').html('0% Complete');
+
+        })
+
+    </script>
+
+@endsection
